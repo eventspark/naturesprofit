@@ -1,0 +1,58 @@
+<div class="jumbotron text-center">
+	<h1>{{ title }}</h1>
+	
+	<p>
+		{{ message }}
+	</p>
+
+	<div class="optionList">
+		<div class="option" ng-click="cast('farming', 50)">
+			<div class="title">
+				Nature's Call (Farming)
+			</div>
+			<div class="description">
+				A Treant will go farm neutrals, gaining you +1 passive gold
+			</div>
+			<div class="cost">
+				50MP
+			</div>
+		</div>
+		<div class="option" ng-click="cast('combat', 50)">
+			<div class="title">
+				Nature's Call (Combat)
+			</div>
+			<div class="description">
+				A Treant will help you fight, helping you deal damage
+			</div>
+			<div class="cost">
+				50MP
+			</div>
+		</div>
+		<div class="option" ng-click="cast('flowering', 250)" ng-show="flowering">
+			<div class="title">
+				Flowering Treant
+			</div>
+			<div class="description">
+				Grants a bonus to last hit bounty
+			</div>
+			<div class="cost">
+				250MP
+			</div>
+		</div>
+		<div class="option" ng-click="cast('Wrath of Nature', 80, true)">
+			<div class="title">
+				Wrath of Nature
+			</div>
+			<div class="description">
+				Grants a gold bounty that scales with mana spent to cast
+			</div>
+			<div class="cost">
+				80% Max MP
+			</div>
+		</div>
+	</div>
+
+	<p>
+		{{ msglog }}
+	</p>
+</div>

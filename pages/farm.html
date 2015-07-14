@@ -1,0 +1,29 @@
+<div class="jumbotron text-center">
+	<h1>{{ title }}</h1>
+	
+	<p>
+		{{ message }}
+	</p>
+
+	<div class="optionList">
+		<div class="option action" ng-click="attack()">
+			<div class="title">
+				Enemy
+			</div>
+			<div class="description">
+				<div class="progress">
+			      <div class="progress-bar progress-bar-danger active" role="progressbar" aria-valuenow="{{(enemyhp/enemymaxhp*100)}}" aria-valuemin="0" aria-valuemax="{{enemymaxhp}}" style="width:{{(enemyhp/enemymaxhp*100)}}%">
+			        {{enemyhp}}/{{enemymaxhp}} HP
+			      </div>
+			    </div>
+			</div>
+			<div class="cost">
+				-
+			</div>
+		</div>
+	</div>
+
+	<p>
+		{{ msglog }}
+	</p>
+</div>

@@ -1,0 +1,47 @@
+.stats {
+  margin: 0 auto;
+  margin-bottom: 50px;
+  width: 300px;
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.optionList {
+	overflow: auto;
+	zoom: 1;
+}
+.option {
+	width: 300px;
+	height: auto;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid #ccc;
+	float: left;
+	background-color: #fafafa;
+	cursor: pointer;
+	-webkit-transition: all 500ms ease-in 0s;
+    -moz-transition: all 500ms ease-in 0s;
+    -o-transition: all 500ms ease-in 0s;
+    transition: all 500ms ease-in 0s;
+}
+.option:hover {
+	border: 1px solid #000;
+	background-color: #fff;
+}
+.action {
+	margin: 0 auto;
+	float: none;
+}
+.title {
+	font-size: 1.1em;
+}
+.description, .cost {
+	font-size: 0.9em;
+	font-style: italic;
+}

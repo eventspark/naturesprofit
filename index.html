@@ -1,0 +1,169 @@
+<!-- 
+ideas:
+
+rank - mushroom cap
+gambling corner
+  dive tower
+    chance to earn gold or die and lose gold
+
+events
+  timbersaw
+    kills treants
+
+treant protector
+forest protection
+  protect against timbersaw
+
+treants do damage over time
+need to time your last hits
+
+last hitting gives bonus gold
+greevil's greed
+  multiplying bonus gold on consecutive last hits
+
+multicast on skills
+
+mangos
+
+upgrade super creeps / mega creeps
+
+Mask of Madness / sniper
+  auto attack
+
+Alchemist
+  farms you 1 aghs / hour
+
+One of the treants costs 100% mana
+ -->
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<!-- define angular app -->
+<html ng-app="dotaApp">
+
+<head>
+  <meta charset="utf-8">
+
+  <base href="/joe/routes/">
+
+  <title ng-bind="title">Nature's Profit: {{title}}</title>
+
+  <!-- SCROLLS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="profit.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- SPELLS -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<!-- define angular controller -->
+<body ng-controller="mainController" class="noselect">
+
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/joe/routes/">Nature's Profit Angular RPG</a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#farm"><i class="fa fa-steam"></i> Farm</a></li>
+        <li><a href="#sprout"><i class="fa fa-leaf"></i> Sprout</a></li>
+        <li><a href="#shop"><i class="fa fa-cart-plus"></i> Shopkeeper</a></li>
+        <li><a href="#stash"><i class="fa fa-briefcase"></i> Stash</a></li>
+
+        <li><a href="#ShowOrder/{{query}}">Misc</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="main">
+  
+    <!-- angular templating -->
+		<!-- this is where content will be injected -->
+    <div ng-view></div>
+    
+  </div>
+
+  <div class="stats">
+
+    Current Rank: {{ranks[0].rank}}
+    <br>
+    
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{(currentmp/maxmp*100)}}" aria-valuemin="0" aria-valuemax="{{maxmp}}" style="width:{{(currentmp/maxmp*100)}}%">
+        {{currentmp}}/{{maxmp}} MP
+      </div>
+    </div>
+    <div>
+      Gold: {{gold}}
+    </div>
+    <div>
+      Creep kills: {{creepKills}}
+    </div>
+    <div>
+      Last Hits: {{lastHits}}
+    </div>
+    <div>
+      Farming Treants: {{farmingTreants}}
+    </div>
+    <div>
+      Combat Treants: {{combatTreants}}
+    </div>
+    <div ng-show="flowering">
+      Flowering Treants: {{floweringTreants}}
+    </div>
+    <div ng-show="deadwood">
+      Deadwood Treants: {{deadwoodTreants}}
+    </div>
+    <div ng-show="evergreen">
+      Evergreen Stalkers: {{evergreenTreants}}
+    </div>
+    <div ng-show="pumpkins">
+      Hallowed Pumpkins: {{pumpkinsTreants}}
+    </div>
+    <div ng-show="shroomling">
+      Shroomlings: {{shroomlingTreants}}
+    </div>
+    <div ng-show="shroomthing">
+      Shroom Things: {{shroomthingTreants}}
+    </div>
+    <div ng-show="bonsaiko">
+      Bonsaikos: {{bonsaikoTreants}}
+    </div>
+    <div ng-show="primeval">
+      Primeval Treants: {{primevalTreants}}
+    </div>
+    <div ng-show="lotus">
+      Living Lotuses: {{lotusTreants}}
+    </div>
+    <div>
+      Steps: {{steps}}
+    </div>
+    <div>
+      Time: {{seconds}}
+    </div>
+    <div>
+      Search: <input ng-model="query">
+    </div>
+
+    <div style="clear: both; display: none;">
+      <button ng-click="farm()">Farm</button>
+    </div>
+
+  </div>
+  
+  <footer class="text-center">
+  </footer>
+  
+</body>
+
+</html>
