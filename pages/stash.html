@@ -2,4 +2,129 @@
 	<h1>{{ title }}</h1>
 	
 	<p>{{ message }}</p>
+
+	Consumables & Equipment
+	<div class="optionList">
+		<div class="option" ng-click="consume('mangoTangos')" ng-show="mangoTangos.count > 0">
+			<div class="title">
+				{{mangoTangos.name}}
+			</div>
+			<div class="description">
+				{{mangoTangos.description}}
+			</div>
+			<div class="cost">
+				{{mangoTangos.count}}x
+			</div>
+		</div>
+		<div class="option" ng-show="pointBooster.count > 0">
+			<div class="title">
+				{{pointBooster.name}}
+			</div>
+			<div class="description">
+				{{pointBooster.description}}
+			</div>
+			<div class="cost">
+				{{pointBooster.count}}x
+			</div>
+		</div>
+		<div class="option" ng-show="ogreClub.count > 0">
+			<div class="title">
+				{{ogreClub.name}}
+			</div>
+			<div class="description">
+				{{ogreClub.description}}
+			</div>
+			<div class="cost">
+				{{ogreClub.count}}x
+			</div>
+		</div>
+		<div class="option" ng-show="bladeOfAlacrity.count > 0">
+			<div class="title">
+				{{bladeOfAlacrity.name}}
+			</div>
+			<div class="description">
+				{{bladeOfAlacrity.description}}
+			</div>
+			<div class="cost">
+				{{bladeOfAlacrity.count}}x
+			</div>
+		</div>
+		<div class="option" ng-show="staffOfWizardry.count > 0">
+			<div class="title">
+				{{staffOfWizardry.name}}
+			</div>
+			<div class="description">
+				{{staffOfWizardry.description}}
+			</div>
+			<div class="cost">
+				{{staffOfWizardry.count}}x
+			</div>
+		</div>
+		<div class="option" ng-click="consume('aghs')" ng-show="pointBooster.count > 0 && ogreClub.count > 0 && bladeOfAlacrity.count > 0 && staffOfWizardry.count > 0" title="Point Booster, Ogre Club, Blade of Alacrity, Staff of Wizardry">
+			<div class="title">
+				Combine into Aghanim's
+			</div>
+			<div class="description">
+				Combine the four pieces into an Aghanim's Staff
+			</div>
+			<div class="cost">
+				What is this sorcery?
+			</div>
+		</div>
+		<div class="option" ng-show="aghanimsScepter.count > 0">
+			<div class="title">
+				{{aghanimsScepter.name}}
+			</div>
+			<div class="description">
+				{{aghanimsScepter.description}}
+			</div>
+			<div class="cost">
+				{{aghanimsScepter.count}}x
+			</div>
+		</div>
+		<div class="option" ng-show="handOfMidas.count > 0">
+			<div class="title">
+				{{handOfMidas.name}}
+			</div>
+			<div class="description">
+				{{handOfMidas.description}}
+			</div>
+			<div class="cost">
+				{{handOfMidas.count}}x
+			</div>
+		</div>
+		<div class="option" ng-show="boots.purchased">
+			<div class="title">
+				{{boots.name}}
+			</div>
+			<div class="description">
+				{{boots.description}}
+			</div>
+			<div class="cost">
+				Equipped
+			</div>
+		</div>
+		<div class="option" ng-show="shadowBlade.purchased">
+			<div class="title">
+				{{shadowBlade.name}}
+			</div>
+			<div class="description">
+				{{shadowBlade.name}}
+			</div>
+			<div class="cost">
+				Equipped
+			</div>
+		</div>
+		<div class="option" ng-show="quellingBlade.purchased">
+			<div class="title">
+				{{quellingBlade.name}}
+			</div>
+			<div class="description">
+				{{quellingBlade.name}}
+			</div>
+			<div class="cost">
+				Equipped
+			</div>
+		</div>
+	</div>
 </div>

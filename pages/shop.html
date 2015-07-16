@@ -5,206 +5,265 @@
 
 	Consumables & Equipment
 	<div class="optionList">
-		<div class="option" ng-click="purchase('Mango Tangos', 125)">
+		<div class="option" ng-click="purchase('mangoTangos')">
 			<div class="title">
-				Mango Tangos
+				{{mangoTangos.name}}
 			</div>
 			<div class="description">
-				Restore 150 MP
+				{{mangoTangos.description}}
 			</div>
 			<div class="cost">
-				150g
+				{{mangoTangos.goldcost}}g
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Boots', 420)">
+		<div class="option" ng-click="purchase('boots')">
 			<div class="title">
-				Boots
+				{{boots.name}}
 			</div>
 			<div class="description">
-				Auto Spawn Creeps
+				{{boots.description}}
 			</div>
-			<div ng-hide="boots" class="cost">
-				420g
+			<div ng-hide="boots.purchased" class="cost">
+				{{boots.goldcost}}g
 			</div>
-			<div ng-show="boots" class="cost">
-				purchased
+			<div ng-show="boots.purchased" class="cost">
+				Purchased
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Shadow Blade', 2800)">
+		<div class="option" ng-click="purchase('shadowBlade')">
 			<div class="title">
-				Shadow Blade
+				{{shadowBlade.name}}
 			</div>
 			<div class="description">
-				First Hit Criticals
+				{{shadowBlade.name}}
 			</div>
-			<div ng-hide="lothars" class="cost">
-				2800g
+			<div ng-hide="shadowBlade.purchased" class="cost">
+				{{shadowBlade.goldcost}}g
 			</div>
-			<div ng-show="lothars" class="cost">
-				purchased
+			<div ng-show="shadowBlade.purchased" class="cost">
+				Purchased
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Hand of Midas', 1500)">
+		<div class="option" ng-click="purchase('quellingBlade')">
 			<div class="title">
-				Hand of Midas
+				{{quellingBlade.name}}
 			</div>
 			<div class="description">
-				Passive Gold + 5
+				{{quellingBlade.name}}
+			</div>
+			<div ng-hide="quellingBlade.purchased" class="cost">
+				{{quellingBlade.goldcost}}g
+			</div>
+			<div ng-show="quellingBlade.purchased" class="cost">
+				Purchased
+			</div>
+		</div>
+		<div class="option" ng-click="purchase('pointBooster')">
+			<div class="title">
+				{{pointBooster.name}}
+			</div>
+			<div class="description">
+				{{pointBooster.description}}
 			</div>
 			<div class="cost">
-				1500g
+				{{pointBooster.goldcost}}g
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Pointer Booster', 1200)">
+		<div class="option" ng-click="purchase('ogreClub')">
 			<div class="title">
-				Pointer Booster
+				{{ogreClub.name}}
 			</div>
 			<div class="description">
-				Max MP + 150
+				{{ogreClub.description}}
 			</div>
 			<div class="cost">
-				1200g
+				{{ogreClub.goldcost}}g
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Ogre Club', 1000)">
+		<div class="option" ng-click="purchase('bladeOfAlacrity')">
 			<div class="title">
-				Ogre Club
+				{{bladeOfAlacrity.name}}
 			</div>
 			<div class="description">
-				Base Damage + 10
+				{{bladeOfAlacrity.description}}
 			</div>
 			<div class="cost">
-				1000g
+				{{bladeOfAlacrity.goldcost}}g
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Blade of Alacrity', 1000)">
+		<div class="option" ng-click="purchase('staffOfWizardry')">
 			<div class="title">
-				Blade of Alacrity
+				{{staffOfWizardry.name}}
 			</div>
 			<div class="description">
-				Variance Damage + 12
+				{{staffOfWizardry.description}}
 			</div>
 			<div class="cost">
-				1000g
+				{{staffOfWizardry.goldcost}}g
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Staff of Wizardry', 1000)">
+		<div class="option" ng-click="purchase('handOfMidas')">
 			<div class="title">
-				Staff of Wizardry
+				{{handOfMidas.name}}
 			</div>
 			<div class="description">
-				MP Regen + 2
+				{{handOfMidas.description}}
 			</div>
 			<div class="cost">
-				1000g
+				{{handOfMidas.goldcost}}g
 			</div>
 		</div>
 	</div>
 
 	Recipes
 	<div class="optionList">
-		<div class="option" ng-click="purchase('Flowering Treant Recipe', 10000)">
+		<div class="option" ng-click="purchase('floweringTreants')">
 			<div class="title">
-				Flowering Treant Recipe
+				{{floweringTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Flowering Treants
+				Sprout {{floweringTreants.name}}s
 			</div>
 			<div class="cost">
-				10000g
+				<div ng-show="floweringTreants.goldcost">
+					{{floweringTreants.goldcost}}g
+				</div>
+				<div ng-hide="floweringTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Deadwood Recipe', 100000)">
+		<div class="option" ng-click="purchase('deadwoodTreants')" ng-show="floweringTreants.recipe">
 			<div class="title">
-				Deadwood Recipe
+				{{deadwoodTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Deadwood Treants
+				Sprout {{deadwoodTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="deadwoodTreants.goldcost">
+					{{deadwoodTreants.goldcost}}g
+				</div>
+				<div ng-hide="deadwoodTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Evergreen Stalker Recipe', 100000)">
+		<div class="option" ng-click="purchase('evergreenTreants')" ng-show="deadwoodTreants.recipe">
 			<div class="title">
-				Evergreen Stalker Recipe
+				{{evergreenTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Evergreen Stalkers
+				Sprout {{evergreenTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="evergreenTreants.goldcost">
+					{{evergreenTreants.goldcost}}g
+				</div>
+				<div ng-hide="evergreenTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Hallowed Pumpkins Recipe', 100000)">
+		<div class="option" ng-click="purchase('pumpkinTreants')" ng-show="evergreenTreants.recipe">
 			<div class="title">
-				Hallowed Pumpkins Recipe
+				{{pumpkinTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Hallowed Pumpkins
+				Sprout {{pumpkinTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="pumpkinTreants.goldcost">
+					{{pumpkinTreants.goldcost}}g
+				</div>
+				<div ng-hide="pumpkinTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Shroomling Recipe', 100000)">
+		<div class="option" ng-click="purchase('shroomlingTreants')" ng-show="pumpkinTreants.recipe">
 			<div class="title">
-				Shroomling Recipe
+				{{shroomlingTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Shroomlings
+				Sprout {{shroomlingTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="shroomlingTreants.goldcost">
+					{{shroomlingTreants.goldcost}}g
+				</div>
+				<div ng-hide="shroomlingTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Shroom Thing Recipe', 100000)">
+		<div class="option" ng-click="purchase('shroomthingTreants')" ng-show="shroomlingTreants.recipe">
 			<div class="title">
-				Shroom Thing Recipe
+				{{shroomthingTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Shroom Things
+				Sprout {{shroomthingTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="shroomthingTreants.goldcost">
+					{{shroomthingTreants.goldcost}}g
+				</div>
+				<div ng-hide="shroomthingTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Bonsaiko Recipe', 100000)">
+		<div class="option" ng-click="purchase('bonsaikoTreants')" ng-show="shroomthingTreants.recipe">
 			<div class="title">
-				Bonsaiko Recipe
+				{{bonsaikoTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Bonsaiko Treants
+				Sprout {{bonsaikoTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="bonsaikoTreants.goldcost">
+					{{bonsaikoTreants.goldcost}}g
+				</div>
+				<div ng-hide="bonsaikoTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Primeval Recipe', 100000)">
+		<div class="option" ng-click="purchase('primevalTreants')" ng-show="bonsaikoTreants.recipe">
 			<div class="title">
-				Primeval Treant Recipe
+				{{primevalTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Primeval Treants
+				Sprout {{primevalTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="primevalTreants.goldcost">
+					{{primevalTreants.goldcost}}g
+				</div>
+				<div ng-hide="primevalTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
-		<div class="option" ng-click="purchase('Living Lotus Recipe', 100000)">
+		<div class="option" ng-click="purchase('lotusTreants')" ng-show="primevalTreants.recipe">
 			<div class="title">
-				Living Lotus Recipe
+				{{lotusTreants.name}} Recipe
 			</div>
 			<div class="description">
-				Sprout Living Lotus Treants
+				Sprout {{lotusTreants.name}}s
 			</div>
 			<div class="cost">
-				100000g
+				<div ng-show="lotusTreants.goldcost">
+					{{lotusTreants.goldcost}}g
+				</div>
+				<div ng-hide="lotusTreants.goldcost">
+					Purchased
+				</div>
 			</div>
 		</div>
 	</div>
 
-	Upgrades
+	<!-- Upgrades
 	<div class="optionList">
 		<div class="option" ng-click="">
 			<div class="title">
@@ -236,7 +295,7 @@
 			</div>
 			<div class="description">
 				Upgrade Your Sunglasses
-				<!-- Rayban, Wayfarers -->
+				Rayban, Wayfarers
 			</div>
 		</div>
 	</div>
@@ -636,12 +695,7 @@
 				50 Aghs
 			</div>
 		</div>
-	</div>
-
-
-	<p>
-		{{ msglog }}
-	</p>
+	</div> -->
 
 	<!-- Sunglasses: reduce the glare of all the gold shining back at you -->
 	<!-- Item Cost - 20% -->

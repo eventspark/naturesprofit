@@ -5,54 +5,99 @@
 		{{ message }}
 	</p>
 
+	Nature's Call
 	<div class="optionList">
-		<div class="option" ng-click="cast('farming', 50)">
+		<div class="option" ng-click="cast('farmingTreants')">
 			<div class="title">
-				Nature's Call (Farming)
+				{{farmingTreants.name}}
 			</div>
 			<div class="description">
-				A Treant will go farm neutrals, gaining you +1 passive gold
+				{{farmingTreants.description}}
 			</div>
 			<div class="cost">
-				50MP
+				{{farmingTreants.mpcost}}MP
 			</div>
 		</div>
-		<div class="option" ng-click="cast('combat', 50)">
+		<div class="option" ng-click="cast('combatTreants')">
 			<div class="title">
-				Nature's Call (Combat)
+				{{combatTreants.name}}
 			</div>
 			<div class="description">
-				A Treant will help you fight, helping you deal damage
+				{{combatTreants.description}}
 			</div>
 			<div class="cost">
-				50MP
+				{{combatTreants.mpcost}}MP
 			</div>
 		</div>
-		<div class="option" ng-click="cast('flowering', 250)" ng-show="flowering">
+		<div class="option" ng-click="cast('floweringTreants')" ng-show="floweringTreants.recipe">
 			<div class="title">
-				Flowering Treant
+				{{floweringTreants.name}}
 			</div>
 			<div class="description">
-				Grants a bonus to last hit bounty
+				{{floweringTreants.description}}
 			</div>
 			<div class="cost">
-				250MP
+				{{floweringTreants.mpcost}}MP
 			</div>
 		</div>
-		<div class="option" ng-click="cast('Wrath of Nature', 80, true)">
+		<div class="option" ng-click="cast('deadwoodTreants')" ng-show="deadwoodTreants.recipe">
 			<div class="title">
-				Wrath of Nature
+				{{deadwoodTreants.name}}
 			</div>
 			<div class="description">
-				Grants a gold bounty that scales with mana spent to cast
+				{{deadwoodTreants.description}}
+			</div>
+			<div class="cost">
+				{{deadwoodTreants.mpcost}}MP
+			</div>
+		</div>
+		<div class="option" ng-click="cast('evergreenTreants')" ng-show="evergreenTreants.recipe">
+			<div class="title">
+				{{evergreenTreants.name}}
+			</div>
+			<div class="description">
+				{{evergreenTreants.description}}
+			</div>
+			<div class="cost">
+				{{evergreenTreants.mpcost}}MP
+			</div>
+		</div>
+		<div class="option" ng-click="cast('pumpkinTreants')" ng-show="pumpkinTreants.recipe">
+			<div class="title">
+				{{pumpkinTreants.name}}
+			</div>
+			<div class="description">
+				{{pumpkinTreants.description}}
+			</div>
+			<div class="cost">
+				{{pumpkinTreants.mpcost}}MP
+			</div>
+		</div>
+		<div class="option" ng-click="cast('shroomlingTreants')" ng-show="shroomlingTreants.recipe">
+			<div class="title">
+				{{shroomlingTreants.name}}
+			</div>
+			<div class="description">
+				{{shroomlingTreants.description}}
+			</div>
+			<div class="cost">
+				{{shroomlingTreants.mpcost}}MP
+			</div>
+		</div>
+	</div>
+
+	Skills
+	<div class="optionList">
+		<div class="option" ng-click="cast('wrathOfNature')">
+			<div class="title">
+				{{wrathOfNature.name}}
+			</div>
+			<div class="description">
+				{{wrathOfNature.description}}
 			</div>
 			<div class="cost">
 				80% Max MP
 			</div>
 		</div>
 	</div>
-
-	<p>
-		{{ msglog }}
-	</p>
 </div>
