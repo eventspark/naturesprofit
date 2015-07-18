@@ -47,6 +47,13 @@
         controller  : 'buildController'
       })
 
+      // route for the dojo page
+      .when('/dojo', {
+        title: 'Dojo',
+        templateUrl : 'pages/dojo.html',
+        controller  : 'dojoController'
+      })
+
       // route for the stash page
       .when('/stash', {
         title: 'Stash',
@@ -74,52 +81,76 @@
 
   dotaApp.run(['$location', '$rootScope', function($location, $rootScope) {
 
+    // core stats
     $rootScope.timer = 0;
     $rootScope.seconds = 0;
-    $rootScope.goldCounter = 0;
-    $rootScope.manaCounter = 0;
-
-    // core stats
     $rootScope.steps = 0;
+    // battle stats
+    $rootScope.attackBase = 1;
+    $rootScope.attackRange = 5;
+    $rootScope.creepDamageRate = 0;
 
-    // $rootScope.gold = 10000;
-    $rootScope.gold = 0;
-    $rootScope.lifeTimeGold = 0;
-    $rootScope.passiveGold = 0;
+    $rootScope.creeps = {
+      kills: 0,
+      lastHits: 0,
+      consecutiveLastHits: 0,
+      baseBounty: 37
+    }
 
-    $rootScope.currentmp = 100;
-    $rootScope.maxmp = 100;
-    $rootScope.mpregen = 1;
 
+    // resources
+    $rootScope.gold = {
+      count: 0,
+      lifetime: 0,
+      baserate: 1,
+      totalrate: 0,
+      ratepersec: 0,
+      counter: 0
+    }
+    $rootScope.mana = {
+      count: 100,
+      max: 100,
+      baserate: 1,
+      totalrate: 0,
+      ratepersec: 0,
+      counter: 0
+    }
     $rootScope.lumber = {
       enabled: false,
       count: 0,
       max: 100,
       baserate: 0,
       totalrate: 0,
-      ratepersec: 0,
+      ratepermin: 0,
       counter: 0
     }
 
 
-    // battle stats
-    $rootScope.attackBase = 1;
-    $rootScope.attackRange = 5;
-    $rootScope.creepDamageRate = 0;
-    $rootScope.creepKills = 0;
-    $rootScope.lastHits = 0;
-
-
     $rootScope.counter = {
-      goldGainRate: 0,
       mpRegenRate: 0,
-      passiveDamageRate: 0
     }
 
 
     // upgrades workshop
     $rootScope.workshop = {
-      level: 0
+      level: 0,
+      name: "Build Workshop",
+      description: "Create the Dota 2 Workshop",
+      lumbercost: 50
+    }
+    $rootScope.reinforcedWood = {
+      name: "Reinforced Wood",
+      description: "Reinforce your Combat Treants to improve their damage rate",
+      count: 0,
+      lumbercost: 50,
+      rate: 1
+    }
+    $rootScope.shed = {
+      name: "Build Shed",
+      description: "Build a wooden shed to store more lumber",
+      count: 0,
+      lumbercost: 25,
+      rate: 50
     }
 
 
@@ -128,6 +159,7 @@
       name: "Farming Treant",
       description: "A Treant will go farm neutrals, gaining you passive gold",
       count: 0,
+      dead: 0,
       mpcost: 50,
       mptype: "flat",
       rate: 1
@@ -136,6 +168,7 @@
       name: "Combat Treant",
       description: "A Treant will help you fight, helping you deal damage to creeps",
       count: 0,
+      dead: 0,
       mpcost: 50,
       mptype: "flat",
       rate: 1
@@ -147,6 +180,7 @@
       recipe: false,
       goldcost: 10000,
       count: 0,
+      dead: 0,
       mpcost: 250,
       mptype: "flat",
       rate: 40
@@ -158,50 +192,55 @@
       recipe: false,
       goldcost: 25000,
       count: 0,
+      dead: 0,
       mpcost: 500,
       mptype: "flat",
       rate: 1/30
     }
-    $rootScope.evergreenTreants = {
-      name: "Evergreen Stalker",
-      description: "",
+    $rootScope.shroomlingTreants = {
+      name: "Shroomling",
+      description: "Shroomlings polish off your creep kills, increasing the base bounty gold dropped",
       category: "recipe",
       recipe: false,
       goldcost: 100000,
       count: 0,
+      dead: 0,
+      mpcost: 1000,
+      mptype: "flat",
+      rate: 5
+    }
+    $rootScope.evergreenTreants = {
+      name: "Evergreen Stalker",
+      description: "Send off this warrior Treant to go hunt neutrals for materials",
+      category: "recipe",
+      recipe: false,
+      goldcost: 500000,
+      count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
     }
     $rootScope.pumpkinTreants = {
       name: "Hallowed Pumpkin",
-      description: "",
-      category: "recipe",
-      recipe: false,
-      goldcost: 500000,
-      count: 0,
-      mpcost: 0,
-      mptype: "flat",
-      rate: 0
-    }
-    $rootScope.shroomlingTreants = {
-      name: "Shroomling",
-      description: "",
+      description: "A Treant goes to set scary pumpkin traps to ward off enemy heroes",
       category: "recipe",
       recipe: false,
       goldcost: 1000000,
       count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
     }
     $rootScope.shroomthingTreants = {
       name: "Shroom Thing",
-      description: "",
+      description: "What does he do? Nobody knows...",
       category: "recipe",
       recipe: false,
       goldcost: 10000000,
       count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
@@ -213,6 +252,7 @@
       recipe: false,
       goldcost: 250000000,
       count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
@@ -224,6 +264,7 @@
       recipe: false,
       goldcost: 5000000000,
       count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
@@ -235,6 +276,7 @@
       recipe: false,
       goldcost: 11111111111,
       count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
@@ -246,6 +288,7 @@
       recipe: false,
       goldcost: 999999999999,
       count: 0,
+      dead: 0,
       mpcost: 0,
       mptype: "flat",
       rate: 0
@@ -256,8 +299,29 @@
     $rootScope.wrathOfNature = {
       name: "Wrath of Nature",
       description: "Grants a gold bounty that scales with mana spent to cast",
+      skillType: "active",
       mpcost: 80,
-      mptype: "percentmax"
+      mptype: "percentmax",
+      learnAghsCost: 0,
+      learned: true
+    }
+    $rootScope.greevilsGreed = {
+      name: "Greevil's Greed",
+      description: "Consecutive Last Hits grant bonus bounty",
+      skillType: "passive",
+      mpcost: 0,
+      mptype: "flat",
+      learnAghsCost: 1,
+      learned: false
+    }
+    $rootScope.chakraMagic = {
+      name: "Chakra Magic",
+      description: "Restores 10% mana once every minute",
+      skillType: "passive",
+      mpcost: 0,
+      mptype: "flat",
+      learnAghsCost: 1,
+      learned: false
     }
 
 
@@ -343,6 +407,8 @@
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
       $rootScope.steps++;
       $rootScope.title = current.$$route.title;
+
+      $rootScope.creeps.consecutiveLastHits = 0;
     });
   }]);
 
@@ -362,31 +428,35 @@
 
     $scope.farm = function() {
       $scope.moneyMaker(1000000);
-      $rootScope.maxmp = $rootScope.maxmp + 1000;
-      $rootScope.currentmp = $rootScope.maxmp;
+      $rootScope.mana.max = $rootScope.mana.max + 1000;
+      $rootScope.mana.count = $rootScope.mana.max;
+      $rootScope.lumber.count = $rootScope.lumber.max;
+      $rootScope.aghanimsScepter.created++;
+      $rootScope.aghanimsScepter.count++;
     }
 
     $scope.instance = 0;
     $scope.active = 0;
     $scope.moneyMaker = function(amount, force) {
-      $rootScope.gold = $rootScope.gold + amount;
-      $scope.lifeTimeGold = $scope.lifeTimeGold + amount;
-      if ($scope.lifeTimeGold > 1000000000) {
+      amount = Math.floor(amount);
+      $rootScope.gold.count = $rootScope.gold.count + amount;
+      $rootScope.gold.lifetime = $rootScope.gold.lifetime + amount;
+      if ($rootScope.gold.lifetime > 1000000000) {
         if ($rootScope.rank != "Don Furion") {
           $rootScope.rank = "Don Furion";
           $scope.messageLogger("You've achieved rank: Don Furion");
         }
-      } else if ($scope.lifeTimeGold > 50000000) {
+      } else if ($rootScope.gold.lifetime > 50000000) {
         if ($rootScope.rank != "Furion the Green") {
           $rootScope.rank = "Furion the Green";
           $scope.messageLogger("You've achieved rank: Furion the Green");
         }
-      } else if ($scope.lifeTimeGold > 1000000) {
+      } else if ($rootScope.gold.lifetime > 1000000) {
         if ($rootScope.rank != "Sapling") {
           $rootScope.rank = "Sapling";
           $scope.messageLogger("You've achieved rank: Sapling");
         }
-      } else if ($scope.lifeTimeGold > 5000) {
+      } else if ($rootScope.gold.lifetime > 5000) {
         if ($rootScope.rank != "Seedling") {
           $rootScope.rank = "Seedling";
           $scope.messageLogger("You've achieved rank: Seedling");
@@ -411,6 +481,8 @@
           $(this).remove();
           $scope.active--;
         });
+        if (amount > 10)
+          $scope.messageLogger("+" + amount + "g", "money");
       }
     }
 
@@ -419,22 +491,29 @@
       $("#log").scrollTop(999999999);
     }
 
+    $scope.restoreMana = function(amount) {
+      $rootScope.mana.count = Math.floor($rootScope.mana.count + amount);
+      if ($rootScope.mana.count > $rootScope.mana.max) {
+        $rootScope.mana.count = $rootScope.mana.max;
+      }
+    }
+
     $scope.passives = function() {
 
       // passive gold rate
-      $scope.totalGoldRate = 1/($rootScope.passiveGold + ($rootScope.farmingTreants.count * $rootScope.farmingTreants.rate) + ($rootScope.handOfMidas.count * $rootScope.handOfMidas.rate)) * 100;
-      $rootScope.counter.goldGainRate = Math.floor(100/$scope.totalGoldRate);
-      console.log("gold gain rate: " + $rootScope.counter.goldGainRate + " gold/sec");
+      $rootScope.gold.totalrate = 1/($rootScope.gold.baserate + ($rootScope.farmingTreants.count * $rootScope.farmingTreants.rate) + ($rootScope.handOfMidas.count * $rootScope.handOfMidas.rate)) * 100;
+      $rootScope.gold.ratepersec = Math.floor(100/$rootScope.gold.totalrate);
+      console.log("gold gain rate: " + $rootScope.gold.ratepersec + " gold/sec");
 
       // passive mana regen rate
-      $scope.totalManaRate = 1/($rootScope.mpregen) * 100;
-      $rootScope.counter.mpRegenRate = Math.floor(100/$scope.totalManaRate);
-      console.log("mana regen rate: " + $rootScope.counter.mpRegenRate + " mp/sec");
+      $rootScope.totalManaRate = 1/($rootScope.mana.baserate) * 100;
+      $rootScope.mana.ratepersec = Math.floor(100/$rootScope.totalManaRate);
+      console.log("mana regen rate: " + $rootScope.mana.ratepersec + " mp/sec");
 
       if ($rootScope.lumber.enabled) {
         $rootScope.lumber.totalrate = 1/($rootScope.lumber.baserate + ($rootScope.deadwoodTreants.count * $rootScope.deadwoodTreants.rate)) * 100;
-        $rootScope.lumber.ratepersec = Math.floor(100/$rootScope.lumber.totalrate);
-        console.log("lumber gain rate: " + $rootScope.lumber.ratepersec + " lumber/sec");
+        $rootScope.lumber.ratepermin = Math.floor(60 * (100/$rootScope.lumber.totalrate));
+        console.log("lumber gain rate: " + $rootScope.lumber.ratepermin + " lumber/min");
       }
       
       $interval.cancel(timerInterval);
@@ -442,30 +521,37 @@
         $rootScope.timer = $rootScope.timer + 1;
         $rootScope.seconds = Math.floor($rootScope.timer/100);
 
-        if ($scope.totalGoldRate > 0) {
-          $rootScope.goldCounter++;
-          if ($rootScope.goldCounter > $scope.totalGoldRate) {
-            var goldGained = Math.floor($rootScope.goldCounter/$scope.totalGoldRate)
+        if ($rootScope.chakraMagic.learned) {
+          if ($rootScope.timer % (60 * 100) == 0) {
+            $scope.restoreMana($rootScope.mana.max/10);
+            $scope.messageLogger("Chakra Magic!", "sentry")
+          }
+        }
+
+        if ($scope.gold.totalrate > 0) {
+          $rootScope.gold.counter++;
+          if ($rootScope.gold.counter > $scope.gold.totalrate) {
+            var goldGained = Math.floor($rootScope.gold.counter/$scope.gold.totalrate);
             $scope.moneyMaker(goldGained);
-            $rootScope.goldCounter = $rootScope.goldCounter % $scope.totalGoldRate;
+            $rootScope.gold.counter = $rootScope.gold.counter % $scope.gold.totalrate;
           }
         }
         if ($scope.totalManaRate > 0) {
-          $rootScope.manaCounter++;
-          if ($rootScope.manaCounter > $scope.totalManaRate) {
-            var manaGained = Math.floor($rootScope.manaCounter/$scope.totalManaRate)
-            $rootScope.currentmp = $rootScope.currentmp + manaGained;
-            $rootScope.manaCounter = $rootScope.manaCounter % $scope.totalManaRate;
-            if ($rootScope.currentmp > $rootScope.maxmp) {
-              $rootScope.currentmp = $rootScope.maxmp;
-            }
+          $rootScope.mana.counter++;
+          if ($rootScope.mana.counter > $scope.totalManaRate) {
+            var manaGained = Math.floor($rootScope.mana.counter/$scope.totalManaRate);
+            $rootScope.mana.counter = $rootScope.mana.counter % $scope.totalManaRate;
+            $scope.restoreMana(manaGained);
           }
         }
         if ($rootScope.lumber.totalrate > 0) {
           $rootScope.lumber.counter++;
           if ($rootScope.lumber.counter > $rootScope.lumber.totalrate) {
-            var lumberGained = Math.floor($rootScope.lumber.counter/$scope.lumber.totalrate)
+            var lumberGained = Math.floor($rootScope.lumber.counter/$scope.lumber.totalrate);
             $rootScope.lumber.count = $rootScope.lumber.count + lumberGained;
+            if ($rootScope.lumber.count > $rootScope.lumber.max) {
+              $rootScope.lumber.count = $rootScope.lumber.max;
+            }
             $rootScope.lumber.counter = $rootScope.lumber.counter % $scope.lumber.totalrate;
           }
         }
@@ -498,32 +584,36 @@
 
       var truempcost = 0;
       if (data.mptype == "percentmax") {
-        truempcost = $rootScope.maxmp * (data.mpcost / 100);
+        truempcost = $rootScope.mana.max * (data.mpcost / 100);
       } else if (data.mptype == "percentcurrent") {
-        truempcost = $rootScope.currentmp * (data.mpcost / 100);
+        truempcost = $rootScope.mana.count * (data.mpcost / 100);
       } else if (data.mptype == "flat") {
         truempcost = data.mpcost;
       } else {
         console.log("undefined mptype");
       }
       
-      if ($rootScope.currentmp >= truempcost) {
-        $rootScope.currentmp = $rootScope.currentmp - truempcost;
+      if ($rootScope.mana.count >= truempcost) {
+        $rootScope.mana.count = $rootScope.mana.count - truempcost;
         if (type == "farmingTreants") {
-          $rootScope.farmingTreants.count++;
-          $rootScope.farmingTreants.mpcost = Math.floor($rootScope.farmingTreants.mpcost * (Math.log($rootScope.farmingTreants.count + 100) - 3.6));
+          data.count++;
+          data.mpcost = Math.floor(data.mpcost * (Math.log(data.count + 100) - 3.6));
           $scope.messageLogger("You spawned a " + data.name + ".", "good");
         } else if (type == "combatTreants") {
-          $rootScope.combatTreants.count++;
-          $rootScope.combatTreants.mpcost = Math.floor($rootScope.combatTreants.mpcost * (Math.log($rootScope.combatTreants.count + 100) - 3.6));
+          data.count++;
+          data.mpcost = Math.floor(data.mpcost * (Math.log(data.count + 100) - 3.6));
           $scope.messageLogger("You spawned a " + data.name + ".", "good");
         } else if (type == "floweringTreants") {
-          $rootScope.floweringTreants.count++;
-          $rootScope.floweringTreants.mpcost = Math.floor($rootScope.floweringTreants.mpcost * 1.02);
+          data.count++;
+          data.mpcost = Math.floor(data.mpcost * 1.02);
           $scope.messageLogger("You spawned a " + data.name + ".", "good");
         } else if (type == "deadwoodTreants") {
-          $rootScope.deadwoodTreants.count++;
-          $rootScope.deadwoodTreants.mpcost = Math.floor($rootScope.deadwoodTreants.mpcost * 1.02);
+          data.count++;
+          data.mpcost = Math.floor(data.mpcost * 1.02);
+          $scope.messageLogger("You spawned a " + data.name + ".", "good");
+        } else if (type == "shroomlingTreants") {
+          data.count++;
+          data.mpcost = Math.floor(data.mpcost * 1.02);
           $scope.messageLogger("You spawned a " + data.name + ".", "good");
         } else if (type == "wrathOfNature") {
           spellGoldGain = Math.floor(Math.pow(1.07, truempcost.toString().length) * truempcost);
@@ -547,6 +637,14 @@
     var passiveDamage, autoSpawn;
     var battleReady = true;
 
+    // cancels battle cycle when not on farm route
+    var disengage = $rootScope.$on('$locationChangeSuccess', function() {
+      // console.log("Cancel Interval");
+      $interval.cancel(passiveDamage);
+      $timeout.cancel(autoSpawn);
+      disengage();
+    });
+
     $scope.generateEnemy = function() {
       battleReady = false;
       $timeout(function() {
@@ -555,7 +653,7 @@
 
       $timeout.cancel(autoSpawn);
       $scope.msglog = "New creep appears.";
-      $scope.enemymaxhp = Math.floor((Math.random() * 10) + 10 + $rootScope.creepKills);
+      $scope.enemymaxhp = Math.floor((Math.random() * 10) + 10 + $rootScope.creeps.kills);
       $scope.enemyhp = $scope.enemymaxhp;
       $scope.firstHit = false;
 
@@ -572,10 +670,15 @@
             if ($scope.enemyhp <= 0) {
               $interval.cancel(passiveDamage);
               $scope.enemyhp = 0;
-              $scope.goldGain = Math.floor((Math.random() * $scope.enemymaxhp) + 10);
+              $scope.goldGain = (Math.random() * 7) + $rootScope.creeps.baseBounty;
+              var shroomlingBonus = $rootScope.shroomlingTreants.count * $rootScope.shroomlingTreants.rate;
+              $scope.goldGain = $scope.goldGain + shroomlingBonus;
+              $scope.goldGain = $scope.goldGain * 0.5; // penalty for non last hit
               $scope.moneyMaker($scope.goldGain);
               $scope.msglog = "Creep killed.";
-              $rootScope.creepKills = $rootScope.creepKills + 1;
+              console.log("Creep killed by passive damage");
+              $rootScope.creeps.kills++;
+              $rootScope.creeps.consecutiveLastHits = 0;
               if ($rootScope.boots.purchased) {
                 autoSpawn = $timeout(function() {
                   $scope.generateEnemy();
@@ -589,6 +692,7 @@
     }
     $scope.generateEnemy();
     $scope.attack = function() {
+      console.log("Clicked attack");
       if (battleReady) {
         if ($scope.enemyhp > 0) {
           $scope.damage = Math.floor((Math.random() * $rootScope.attackRange) + $rootScope.attackBase);
@@ -604,13 +708,26 @@
             $scope.msglog = "You dealt " + $scope.damage + " damage.";
           }
           if ($scope.enemyhp <= 0) {
+            $interval.cancel(passiveDamage);
             $scope.enemyhp = 0;
-            $scope.goldGain = Math.floor((Math.random() * $scope.enemymaxhp * 1.5) + 20) + ($rootScope.floweringTreants.count * $rootScope.floweringTreants.rate);
-            $scope.moneyMaker($scope.goldGain);
             $scope.msglog = "Creep killed.";
-            $rootScope.creepKills = $rootScope.creepKills + 1;
-            $rootScope.lastHits = $rootScope.lastHits + 1;
+            console.log("Creep killed by last hit");
+            $rootScope.creeps.kills++;
+            $rootScope.creeps.lastHits++;
             $scope.messageLogger("You last hit a creep!", "good");
+            $scope.goldGain = (Math.random() * 7) + $rootScope.creeps.baseBounty;
+            var shroomlingBonus = $rootScope.shroomlingTreants.count * $rootScope.shroomlingTreants.rate;
+            $scope.goldGain = $scope.goldGain + shroomlingBonus;
+            var floweringBonus = $rootScope.floweringTreants.count * $rootScope.floweringTreants.rate;
+            $scope.goldGain = $scope.goldGain + floweringBonus;
+            if ($rootScope.greevilsGreed.learned)
+              $rootScope.creeps.consecutiveLastHits++;
+            if ($rootScope.greevilsGreed.learned) {
+              var greevilsBonus = (100 + ($rootScope.creeps.consecutiveLastHits * 3))/100;
+              $scope.goldGain = $scope.goldGain * greevilsBonus;
+              $scope.messageLogger("Greevil's Greed! " + $rootScope.creeps.consecutiveLastHits + "x chain.", "money");
+            }
+            $scope.moneyMaker($scope.goldGain);
             if ($rootScope.boots.purchased) {
               autoSpawn = $timeout(function() {
                 $scope.generateEnemy();
@@ -636,8 +753,8 @@
 
       if (data.goldcost == false || data.purchased == true) {
         $scope.messageLogger("You already have that item.", "warning");
-      } else if ($rootScope.gold >= data.goldcost) {
-        $rootScope.gold = $rootScope.gold - data.goldcost;
+      } else if ($rootScope.gold.count >= data.goldcost) {
+        $rootScope.gold.count = $rootScope.gold.count - data.goldcost;
         if (data.category == "recipe") {
           $scope.messageLogger("You bought " + data.name + " Recipe.", "good");
           data.recipe = true;
@@ -651,8 +768,8 @@
           if (item == "handOfMidas") {
             data.goldcost = Math.floor(data.goldcost * (Math.log(data.count + 20) - 1.5));
           } else if (item == "pointBooster") {
-            $rootScope.maxmp = $rootScope.maxmp + 150;
-            $rootScope.currentmp = $rootScope.currentmp + 150;
+            $rootScope.mana.max = $rootScope.mana.max + 150;
+            $rootScope.mana.count = $rootScope.mana.count + 150;
             data.goldcost = Math.floor(data.goldcost * (Math.log(data.count + 50) - 2.75));
           } else if (item == "ogreClub") {
             $rootScope.attackBase = $rootScope.attackBase + 10;
@@ -661,7 +778,7 @@
             $rootScope.attackRange = $rootScope.attackRange + 12;
             data.goldcost = Math.floor(data.goldcost * (Math.log(data.count + 50) - 2.75));
           } else if (item == "staffOfWizardry") {
-            $rootScope.mpregen = $rootScope.mpregen + 2;
+            $rootScope.mana.baserate = $rootScope.mana.baserate + 2;
             data.goldcost = Math.floor(data.goldcost * (Math.log(data.count + 50) - 2.75));
           }
         } else if (data.category == "unique") {
@@ -684,7 +801,7 @@
     $scope.message = 'Your stash.';
     $scope.consume = function(item) {
 
-      if (item = "aghs") {
+      if (item == "aghs") {
 
         if ($rootScope.pointBooster.count > 0 && $rootScope.ogreClub.count > 0 && $rootScope.bladeOfAlacrity.count > 0 && $rootScope.staffOfWizardry.count > 0) {
           $rootScope.pointBooster.count--;
@@ -706,10 +823,7 @@
 
         if (data.count > 0) {
           if (item == "mangoTangos") {
-            $rootScope.currentmp = $rootScope.currentmp + 150;
-            if ($rootScope.currentmp > $rootScope.maxmp) {
-              $rootScope.currentmp = $rootScope.maxmp;
-            }
+            $scope.restoreMana(150);
           }
           $scope.messageLogger("You consumed " + data.name + ".", "sentry");
           data.count--;
@@ -718,28 +832,78 @@
     }
   });
 
+
   // build controller - build upgrades
   dotaApp.controller('buildController', function($scope, $rootScope) {
     console.log("buildController");
     $scope.message = 'Your local Dota 2 Workshop.';
     $scope.build = function(upgrade) {
 
-      if (upgrade == "level1") {
-        if ($rootScope.lumber.count >= 50) {
-          $rootScope.lumber.count = $rootScope.lumber.count - 50;
+      console.log(upgrade);
+
+      var data = $rootScope.$eval(upgrade);
+
+      console.log(data);
+
+      if ($rootScope.lumber.count >= data.lumbercost) {
+        $rootScope.lumber.count = $rootScope.lumber.count - data.lumbercost;
+        if (upgrade == "workshop") {
+          $scope.messageLogger("You created the Dota Workshop. Create upgrades for your treants here.", "good");
           $rootScope.workshop.level = 1;
         } else {
-          $scope.messageLogger("Not enough resources.", "warning");
+          $scope.messageLogger("You created " + data.name + ".", "good");
+           if (upgrade == "reinforcedWood") {
+            $rootScope.combatTreants.rate = $rootScope.combatTreants.rate + data.rate;
+            data.rate = data.rate * 2/3;
+          } else if (upgrade == "shed") {
+            $rootScope.lumber.max = $rootScope.lumber.max + data.rate;
+          }
         }
+      } else {
+        $scope.messageLogger("Not enough resources.", "warning");
       }
     }
   });
 
+
+
+  // dojo controller - learn new skills
+  dotaApp.controller('dojoController', function($scope, $rootScope) {
+    console.log("dojoController");
+    $scope.message = 'Learn new skills from the grand magus.';
+    $scope.train = function(skill) {
+
+      console.log(skill);
+
+      var data = $rootScope.$eval(skill);
+
+      console.log(data);
+
+      if (data.learned == true) {
+        $scope.messageLogger("You already learned this skill.", "warning");
+      } else if ($rootScope.aghanimsScepter.count >= data.learnAghsCost) {
+        $rootScope.aghanimsScepter.count = $rootScope.aghanimsScepter.count - data.learnAghsCost;
+        $scope.messageLogger("You learned " + data.name + "!", "good");
+        data.learned = true;
+      } else {
+        $scope.messageLogger("Not enough for do this power.", "warning");
+      }
+    }
+
+  });
+
+
   dotaApp.controller('testController', function($scope, $rootScope) {
     console.log("testController");
     $scope.moneyMaker(10000000000);
-    $rootScope.maxmp = $rootScope.maxmp + 10000000000;
-    $rootScope.currentmp = $rootScope.maxmp;
+    $rootScope.mana.max = $rootScope.mana.max + 10000000000;
+    $rootScope.mana.count = $rootScope.mana.max;
+    $rootScope.floweringTreants.recipe = true;
+    $rootScope.deadwoodTreants.recipe = true;
+    $rootScope.shroomlingTreants.recipe = true;
+    $rootScope.lumber.enabled = true;
+    $rootScope.aghanimsScepter.count = 5;
+    $rootScope.aghanimsScepter.created = 5;
   });
   
   dotaApp.controller('ShowOrderController', function($scope, $rootScope, $routeParams) {

@@ -3,16 +3,45 @@
 	
 	<p>{{ message }}</p>
 
+	<hr>
+	Workshop
 	<div class="optionList">
-		<div class="option" ng-click="build('level1')" ng-show="workshop.level == 0">
+		<div class="option" ng-click="build('workshop')">
 			<div class="title">
-				Build Workshop
+				{{workshop.name}}
 			</div>
 			<div class="description">
-				Create the Dota 2 Workshop
+				{{workshop.description}}
 			</div>
 			<div class="cost">
-				50 lumber
+				{{workshop.lumbercost}} lumber
+			</div>
+		</div>
+	</div>
+
+	<hr>
+	Upgrades
+	<div class="optionList">
+		<div class="option" ng-click="build('reinforcedWood')" ng-show="workshop.level > 0">
+			<div class="title">
+				{{reinforcedWood.name}}
+			</div>
+			<div class="description">
+				{{reinforcedWood.description}}
+			</div>
+			<div class="cost">
+				{{reinforcedWood.lumbercost}} lumber
+			</div>
+		</div>
+		<div class="option" ng-click="build('shed')" ng-show="workshop.level > 0">
+			<div class="title">
+				{{shed.name}}
+			</div>
+			<div class="description">
+				{{shed.description}}
+			</div>
+			<div class="cost">
+				{{shed.lumbercost}} lumber
 			</div>
 		</div>
 	</div>

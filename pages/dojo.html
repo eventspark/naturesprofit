@@ -1,0 +1,432 @@
+<div class="jumbotron text-center">
+	<h1>{{ title }}</h1>
+	
+	<p>{{ message }}</p>
+
+	<hr>
+	<div class="optionList">
+		<div class="option" ng-click="train('greevilsGreed')">
+			<div class="title">
+				{{greevilsGreed.name}}
+			</div>
+			<div class="description">
+				{{greevilsGreed.description}}
+			</div>
+			<div ng-hide="greevilsGreed.learned" class="cost">
+				{{greevilsGreed.learnAghsCost}}x Aghs
+			</div>
+			<div ng-show="greevilsGreed.learned" class="cost">
+				Learned
+			</div>
+			<div class="cost">
+				
+			</div>
+		</div>
+		<div class="option" ng-click="train('chakraMagic')">
+			<div class="title">
+				{{chakraMagic.name}}
+			</div>
+			<div class="description">
+				{{chakraMagic.description}}
+			</div>
+			<div ng-hide="chakraMagic.learned" class="cost">
+				{{chakraMagic.learnAghsCost}}x Aghs
+			</div>
+			<div ng-show="chakraMagic.learned" class="cost">
+				Learned
+			</div>
+		</div>
+	</div>
+
+
+	<hr>
+	To be implemented (ideas?)
+	<div class="optionList">
+		<div class="option" ng-click="">
+			<div class="title">
+				Backstab
+			</div>
+			<div class="description">
+				Gain gold whenever one of your treants is killed
+			</div>
+			<div class="cost">
+				3 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Berserker's Call
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Black Hole
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Essence Aura
+			</div>
+			<div class="description">
+				10% chance to not use any mana when summoning
+			</div>
+			<div class="cost">
+				5 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Chaos Meatball
+			</div>
+			<div class="description">
+
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Backtrack
+			</div>
+			<div class="description">
+				Rolls 7 die. If RNGesus gain 1,000,000g
+			</div>
+			<div class="cost">
+				7 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Chronosphere
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Coup de Grace
+			</div>
+			<div class="description">
+				15% chance to crit for 4x
+			</div>
+			<div class="cost">
+				20 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Culling Blade
+			</div>
+			<div class="description">
+				Chance to instant kill creep when under 10% hp
+			</div>
+			<div class="cost">
+				15 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Divided We Stand
+			</div>
+			<div class="description">
+				Double all of your current treants
+			</div>
+			<div class="cost">
+				125 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Doom
+			</div>
+			<div class="description">
+				Randomly destroy one type of invader to never appear again
+			</div>
+			<div class="cost">
+				666,000g
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Dream Coil
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+				1,000,000g
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Chaos Dunk
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+				50 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Finger
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Focus Fire
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				God's Strength
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Guardian Angel
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Pudge Hook
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Dragonclaw Hook
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Living Armor
+			</div>
+			<div class="description">
+				Prevent 50% of Treants from dying when Timbersaw attacks
+			</div>
+			<div class="cost">
+				10 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Omnislash
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Overgrowth
+			</div>
+			<div class="description">
+				Double the effectiveness of your Treants
+			</div>
+			<div class="cost">
+				25 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Permanent Invisibility
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Phase Shift
+			</div>
+			<div class="description">
+				Ignore one random encounter per hour
+			</div>
+			<div class="cost">
+				10 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Ravage
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Rearm
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Remote Mines
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Necromastery
+			</div>
+			<div class="description">
+				Defeated creeps grant bonus damage
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Sacred Mango
+			</div>
+			<div class="description">
+				Play the Sacred Mango skillshot minigame
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Sadist
+			</div>
+			<div class="description">
+				View a sexy picture of Necrolyte
+			</div>
+			<div class="cost">
+				666 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Spell Shield
+			</div>
+			<div class="description">
+				Reduce negative debuffs by 50%
+			</div>
+			<div class="cost">
+				5 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Zeus Ult
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Tombstone
+			</div>
+			<div class="description">
+				Increases DoT damage when enemy health low
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Multicast
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Assassinate
+			</div>
+			<div class="description">
+			</div>
+			<div class="cost">
+			</div>
+		</div>
+	</div>
+
+	Heroes
+	<div class="optionList">
+		<div class="option" ng-click="">
+			<div class="title">
+				Alchemist
+			</div>
+			<div class="description">
+				Farms you 1 Aghanim's Scepter per hour
+			</div>
+			<div class="cost">
+				50 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Mario
+			</div>
+			<div class="description">
+				[?] box to farm extra gold
+			</div>
+			<div class="cost">
+				50 Aghs
+			</div>
+		</div>
+		<div class="option" ng-click="">
+			<div class="title">
+				Bloodcyka
+			</div>
+			<div class="description">
+				Сука Блять Мы проиграли
+			</div>
+			<div class="cost">
+				50 Сука
+			</div>
+		</div>
+	</div>
+
+	<!-- Sunglasses: reduce the glare of all the gold shining back at you -->
+	<!-- Item Cost - 20% -->
+	<!-- Farm Speed x 2 -->
+</div>

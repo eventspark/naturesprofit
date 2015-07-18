@@ -34,10 +34,45 @@ Alchemist
   farms you 1 aghs / hour
 
 One of the treants costs 100% mana
+
+
+Ember Spirit, Storm Spirit, Earth Spirit = Captain Planet
+
+
+The ultimate ending is to get the Mangonim's Scepter, to do so you need a ridiculous amounts of Mango Tangos
+Treants that give mango tangos
+
+
+Neutrals resources
+
+gnoll spears
+centaur horns
+hellbear teeth
+wolf hide
+skeleton bones
+harpy dust
+wildkin wings
+ghost essence
+kobold holy grail cup
+
+craft into agh components
+ogre maces
+satyr wands
+dragon claws
+golem hearts
+
+aegis
+cheese
+
  -->
 
 
+<!-- 
+Bugs
 
+when you wait to spawn your first passive treant, it gives you gold equal to the timer
+
+ -->
 
 
 
@@ -80,6 +115,7 @@ One of the treants costs 100% mana
         <li><a href="#sprout"><i class="fa fa-leaf"></i> Sprout</a></li>
         <li><a href="#shop"><i class="fa fa-cart-plus"></i> Shopkeeper</a></li>
         <li ng-show="lumber.enabled"><a href="#build"><i class="fa fa-cogs"></i> Build</a></li>
+        <li ng-show="aghanimsScepter.created > 0"><a href="#dojo"><i class="fa fa-graduation-cap"></i> Dojo</a></li>
         <li><a href="#stash"><i class="fa fa-briefcase"></i> Stash</a></li>
 
         <!-- <li><a href="#ShowOrder/{{query}}">Misc</a></li> -->
@@ -110,33 +146,36 @@ One of the treants costs 100% mana
         <div>
         </div>
 
-        <div class="progress" title="{{gold}} gold ({{counter.goldGainRate}}/sec)">
-          <div class="progress-bar progress-bar-striped active goldbar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="{{maxmp}}" style="width:100%">
-            {{gold}} gold ({{counter.goldGainRate}}/sec)
+        <div class="progress" title="{{gold.count}} gold ({{gold.ratepersec}}/sec)">
+          <div class="progress-bar progress-bar-striped active goldbar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+            {{gold.count}} gold ({{gold.ratepersec}}/sec)
           </div>
         </div>
         
-        <div class="progress" title="{{currentmp}}/{{maxmp}} MP ({{counter.mpRegenRate}}/sec)">
-          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{(currentmp/maxmp*100)}}" aria-valuemin="0" aria-valuemax="{{maxmp}}" style="width:{{(currentmp/maxmp*100)}}%">
-            {{currentmp}}/{{maxmp}} MP ({{counter.mpRegenRate}}/sec)
+        <div class="progress" title="{{mana.count}}/{{mana.max}} MP ({{mana.ratepersec}}/sec)">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{(mana.count/mana.max*100)}}" aria-valuemin="0" aria-valuemax="{{mana.max}}" style="width:{{(mana.count/mana.max*100)}}%">
+            {{mana.count}}/{{mana.max}} MP ({{mana.ratepersec}}/sec)
           </div>
         </div>
 
-        <div class="progress" ng-show="lumber.enabled" title="{{lumber.count}}/{{lumber.max}} lumber ({{lumber.totalrate}}/sec)">
+        <div class="progress" ng-show="lumber.enabled" title="{{lumber.count}}/{{lumber.max}} lumber ({{lumber.ratepermin}}/min)">
           <div class="progress-bar progress-bar-striped active lumberbar" role="progressbar" aria-valuenow="{{(lumber.count/lumber.max*100)}}" aria-valuemin="0" aria-valuemax="{{lumber.max}}" style="width:{{(lumber.count/lumber.max*100)}}%">
-            {{lumber.count}}/{{lumber.max}} lumber ({{lumber.totalrate}}/sec)
+            {{lumber.count}}/{{lumber.max}} lumber ({{lumber.ratepermin}}/min)
           </div>
         </div>
-
-        Current Rank: {{rank}}
-
         <div>
-          Creep kills: {{creepKills}}
+          Current Rank: {{rank}}
+        </div>
+        <div ng-show="aghanimsScepter.created > 0">
+          Aghanim's Scepters: {{aghanimsScepter.count}}/{{aghanimsScepter.created}}
         </div>
         <div>
-          Last Hits: {{lastHits}}
+          Creep kills: {{creeps.kills}}
         </div>
         <div>
+          Last Hits: {{creeps.lastHits}}
+        </div>
+        <!-- <div>
           Farming Treants: {{farmingTreants.count}}
         </div>
         <div>
@@ -168,18 +207,18 @@ One of the treants costs 100% mana
         </div>
         <div ng-show="lotusTreants.recipe">
           Living Lotuses: {{lotusTreants.count}}
-        </div>
-        <div>
+        </div> -->
+        <!-- <div>
           Steps: {{steps}}
-        </div>
+        </div> -->
         <div>
           Time: {{seconds}}
         </div>
       </div>
 
-      <div>
+      <!-- <div>
         Search: <input ng-model="query">
-      </div>
+      </div> -->
 
       <div style="clear: both;">
         <button ng-click="farm()">Farm</button>
